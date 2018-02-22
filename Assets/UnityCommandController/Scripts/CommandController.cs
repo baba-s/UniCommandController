@@ -43,9 +43,9 @@ namespace UnityCommandController
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		public CommandController( Dictionary<string, Type> commandTable )
+		public CommandController( IEnumerable<Type> commandTypes )
 		{
-			m_commandTable = commandTable;
+			m_commandTable = commandTypes.ToDictionary( c => c.Name );
 		}
 
 		/// <summary>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityCommandController;
 using UnityEngine;
 
@@ -11,37 +10,42 @@ namespace UnityCommandController_Example
 
 		private void Awake()
 		{
-			var commandTable = new Dictionary<string, Type>
+			// 使用するコマンドの型リスト
+			var commandTypes = new []
 			{
-				{ "Log", typeof( LogCommand ) },
-				{ "Create", typeof( CreateCommand ) },
-				{ "SetPosition", typeof( SetPositionCommand ) },
-				{ "Move", typeof( MoveCommand ) },
-				{ "Jump", typeof( JumpCommand ) },
-				{ "Wait", typeof( WaitCommand ) },
-				{ "Click", typeof( ClickCommand ) },
+				typeof( LogCommand ),
+				typeof( CreateCommand ),
+				typeof( SetPositionCommand ),
+				typeof( MoveCommand ),
+				typeof( JumpCommand ),
+				typeof( WaitCommand ),
+				typeof( ClickCommand ),
 			};
 
-			m_controller = new CommandController( commandTable );
+			// コマンドを制御するインスタンスの作成
+			m_controller = new CommandController( commandTypes );
 
+			// コマンドのリストの作成
 			var commands = new[]
 			{
-				"Log|ピカチュウ",
-				"Log|ライチュウ",
-				"Create|cube|0|1|2",
-				"SetPosition|1|2|3",
-				"Move|-1|0|1|1",
-				"Jump|6",
-				"Log|ここは無視されます",
-				"Log|ここにジャンプします",
-				"Wait|1",
-				"Click",
+				"LogCommand|ピカチュウ",
+				"LogCommand|ライチュウ",
+				"CreateCommand|cube|0|1|2",
+				"SetPositionCommand|1|2|3",
+				"MoveCommand|-1|0|1|1",
+				"JumpCommand|6",
+				"LogCommand|ここは無視されます",
+				"LogCommand|ここにジャンプします",
+				"WaitCommand|1",
+				"ClickCommand",
 			};
 
+			// コマンドで制御するオブジェクトやパラメータ
 			GameObject cube = null;
 			var startPos = Vector3.zero;
 			var endPos = Vector3.zero;
 
+			// コマンドのイベントを設定
 			CreateCommand.OnCreate += go => cube = go;
 			SetPositionCommand.OnSetPosition += pos => cube.transform.localPosition = pos;
 			MoveCommand.OnMoveStart += pos =>
@@ -56,12 +60,16 @@ namespace UnityCommandController_Example
 			MoveCommand.OnMoveEnd += () => cube.transform.localPosition = endPos;
 			JumpCommand.OnJump += index => m_controller.JumpToIndex( index );
 
+			// すべてのコマンドが終了した時に呼び出される
 			m_controller.OnEnd += () => print( "終了" );
+
+			// コマンドの開始
 			m_controller.Start( commands );
 		}
 
 		private void Update()
 		{
+			// コマンドの更新
 			m_controller.Update();
 		}
 	}
