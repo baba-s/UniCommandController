@@ -41,6 +41,7 @@ namespace UnityCommandController_Example
 			GameObject cube = null;
 			var startPos = Vector3.zero;
 			var endPos = Vector3.zero;
+
 			CreateCommand.OnCreate += go => cube = go;
 			SetPositionCommand.OnSetPosition += pos => cube.transform.localPosition = pos;
 			MoveCommand.OnMoveStart += pos =>
