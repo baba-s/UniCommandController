@@ -6,7 +6,7 @@ namespace UnityCommandController
 	/// <summary>
 	/// コマンドのコンストラクタに渡される引数を管理するクラス
 	/// </summary>
-	public sealed class CommandArugments
+	public sealed class CommandArguments
 	{
 		private readonly List<string> m_list;    // 引数を管理するリスト
 
@@ -23,7 +23,7 @@ namespace UnityCommandController
 		/// <summary>
 		/// 指定された文字列のコレクションから引数のリストを作成するコンストラクタ
 		/// </summary>
-		public CommandArugments( params string[] collection )
+		public CommandArguments( params string[] collection )
 		{
 			m_list = new List<string>( collection );
 		}
@@ -31,7 +31,7 @@ namespace UnityCommandController
 		/// <summary>
 		/// 指定された文字列のコレクションから引数のリストを作成するコンストラクタ
 		/// </summary>
-		public CommandArugments( IEnumerable<string> collection )
+		public CommandArguments( IEnumerable<string> collection )
 		{
 			m_list = new List<string>( collection );
 		}

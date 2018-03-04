@@ -227,7 +227,7 @@ namespace UnityCommandController
 			var scriptList = command.Split( new [] { m_separator }, StringSplitOptions.None ).ToList();
 			var type = m_commandTable[ scriptList[ 0 ] ];
 
-			var script = ( ICommand )Activator.CreateInstance( type, new object[] { new CommandArugments( scriptList ) } );
+			var script = ( ICommand )Activator.CreateInstance( type, new object[] { new CommandArguments( scriptList ) } );
 
 			return script;
 		}

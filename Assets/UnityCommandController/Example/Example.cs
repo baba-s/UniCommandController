@@ -78,7 +78,7 @@ namespace UnityCommandController_Example
 	{
 		private string m_message;
 
-		public LogCommand( CommandArugments args )
+		public LogCommand( CommandArguments args )
 		{
 			m_message = args[ 1 ];
 		}
@@ -96,7 +96,7 @@ namespace UnityCommandController_Example
 
 		public static event Action<GameObject> OnCreate = delegate { };
 
-		public CreateCommand( CommandArugments args )
+		public CreateCommand( CommandArguments args )
 		{
 			m_name = args[ 1 ];
 			m_pos = new Vector3
@@ -123,7 +123,7 @@ namespace UnityCommandController_Example
 
 		public static event Action<Vector3> OnSetPosition = delegate { };
 
-		public SetPositionCommand( CommandArugments args )
+		public SetPositionCommand( CommandArguments args )
 		{
 			m_pos = new Vector3
 			(
@@ -152,7 +152,7 @@ namespace UnityCommandController_Example
 		public static event Action<float> OnMove = delegate { };
 		public static event Action OnMoveEnd = delegate { };
 
-		public MoveCommand( CommandArugments args )
+		public MoveCommand( CommandArguments args )
 		{
 			m_pos = new Vector3
 			(
@@ -188,7 +188,7 @@ namespace UnityCommandController_Example
 
 		public static event Action<int> OnJump = delegate { };
 
-		public JumpCommand( CommandArugments args )
+		public JumpCommand( CommandArguments args )
 		{
 			m_index = args.ToInt( 1 );
 		}
@@ -206,7 +206,7 @@ namespace UnityCommandController_Example
 
 		public override bool IsEnd { get { return m_time <= m_elapsedTime; } }
 
-		public WaitCommand( CommandArugments args )
+		public WaitCommand( CommandArguments args )
 		{
 			m_time = args.ToFloat( 1 );
 		}
@@ -231,7 +231,7 @@ namespace UnityCommandController_Example
 	{
 		public override bool IsEnd { get { return Input.GetMouseButtonDown( 0 ); } }
 
-		public ClickCommand( CommandArugments args ) { }
+		public ClickCommand( CommandArguments args ) { }
 
 		protected override void DoStart()
 		{
