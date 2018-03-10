@@ -1,19 +1,19 @@
-[日本語の Readme はこちら](https://github.com/baba-s/unity-command-controller/blob/master/README_JP.md)  
-
 # UnityCommandController
-A simple library that can control commands to implement event scripts.  
 
-# Version
+「UnityCommandController」は  
+コマンドを制御してイベントスクリプトなどを実装できる簡易ライブラリです  
+
+# 開発環境
 
 - Unity 2017.3.0f3
 
-# Install
+# 導入方法
 
-1. Go to the following page and download "UnityCommandController.unitypackage".  
+1. 下記のページにアクセスして「UnityCommandController.unitypackage」をダウンロードします  
 https://github.com/baba-s/unity-command-controller/blob/master/UnityCommandController.unitypackage?raw=true
-2. Import the downloaded "UnityCommandController.unitypackage" into the Unity project.  
+2. ダウンロードした「UnityCommandController.unitypackage」を Unity プロジェクトにインポートします  
 
-# Usage
+# 使用例
 
 ```cs
 using System;
@@ -28,7 +28,7 @@ namespace UnityCommandController_Example
 
         private void Awake()
         {
-            // Type list of commands to use.
+            // 使用するコマンドの型リスト
             var commandTypes = new []
             {
                 typeof( LogCommand ),
@@ -40,30 +40,30 @@ namespace UnityCommandController_Example
                 typeof( ClickCommand ),
             };
 
-            // Create instances to control commands.
+            // コマンドを制御するインスタンスの作成
             m_controller = new CommandController( commandTypes );
 
-            // Create a list of commands.
+            // コマンドのリストの作成
             var commands = new[]
             {
-                "LogCommand|Pikachu",
-                "LogCommand|Raichu",
+                "LogCommand|ピカチュウ",
+                "LogCommand|ライチュウ",
                 "CreateCommand|cube|0|1|2",
                 "SetPositionCommand|1|2|3",
                 "MoveCommand|-1|0|1|1",
                 "JumpCommand|6",
-                "LogCommand|Ignored here.",
-                "LogCommand|Jumped here.",
+                "LogCommand|ここは無視されます",
+                "LogCommand|ここにジャンプします",
                 "WaitCommand|1",
                 "ClickCommand",
             };
 
-            // Objects and parameters controlled by command.
+            // コマンドで制御するオブジェクトやパラメータ
             GameObject cube = null;
             var startPos = Vector3.zero;
             var endPos = Vector3.zero;
 
-            // Set command event.
+            // コマンドのイベントを設定
             CreateCommand.OnCreate += go => cube = go;
             SetPositionCommand.OnSetPosition += pos => cube.transform.localPosition = pos;
             MoveCommand.OnMoveStart += pos =>
@@ -78,16 +78,16 @@ namespace UnityCommandController_Example
             MoveCommand.OnMoveEnd += () => cube.transform.localPosition = endPos;
             JumpCommand.OnJump += index => m_controller.JumpToIndex( index );
 
-            // Called when all commands are finished.
-            m_controller.OnEnd += () => print( "Finished." );
+            // すべてのコマンドが終了した時に呼び出される
+            m_controller.OnEnd += () => print( "終了" );
 
-            // Command start.
+            // コマンドの開始
             m_controller.Start( commands );
         }
 
         private void Update()
         {
-            // Command update.
+            // コマンドの更新
             m_controller.Update();
         }
     }
@@ -131,7 +131,7 @@ namespace UnityCommandController_Example
             go.name = m_name;
             go.transform.localPosition = m_pos;
             OnCreate( go );
-            Debug.Log( "Object creation complete." );
+            Debug.Log( "オブジェクト作成完了" );
         }
     }
 
@@ -154,7 +154,7 @@ namespace UnityCommandController_Example
         protected override void DoStart()
         {
             OnSetPosition( m_pos );
-            Debug.Log( "Object position setting complete." );
+            Debug.Log( "オブジェクト位置設定完了" );
         }
     }
 
@@ -184,7 +184,7 @@ namespace UnityCommandController_Example
         protected override void DoStart()
         {
             OnMoveStart( m_pos );
-            Debug.Log( "Object movement start." );
+            Debug.Log( "オブジェクト移動開始" );
         }
 
         protected override void DoUpdate()
@@ -196,7 +196,7 @@ namespace UnityCommandController_Example
         protected override void DoDispose()
         {
             OnMoveEnd();
-            Debug.Log( "End of object movement." );
+            Debug.Log( "オブジェクト移動終了" );
         }
     }
 
@@ -231,7 +231,7 @@ namespace UnityCommandController_Example
 
         protected override void DoStart()
         {
-            Debug.Log( "Standby start." );
+            Debug.Log( "待機開始" );
         }
 
         protected override void DoUpdate()
@@ -241,7 +241,7 @@ namespace UnityCommandController_Example
 
         protected override void DoDispose()
         {
-            Debug.Log( "Wait end." );
+            Debug.Log( "待機終了" );
         }
     }
 
@@ -253,12 +253,12 @@ namespace UnityCommandController_Example
 
         protected override void DoStart()
         {
-            Debug.Log( "Wait for input." );
+            Debug.Log( "入力待ち" );
         }
 
         protected override void DoDispose()
         {
-            Debug.Log( "Input confirmation." );
+            Debug.Log( "入力確認" );
         }
     }
 }
