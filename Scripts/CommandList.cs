@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UnityCommandController
+namespace UniCommandController
 {
 	/// <summary>
 	/// コマンドのリストを管理するクラス
 	/// </summary>
 	public sealed class CommandList
 	{
-		private readonly List<string> m_list = new List<string>();  // コマンドのリスト
+		private readonly List<string> m_list; // コマンドのリスト
 
 		/// <summary>
 		/// 指定されたインデックスのコマンドを返します
 		/// </summary>
-		public string this[ int index ] { get { return m_list[ index ]; } }
+		public string this[ int index ] => m_list[ index ];
 
 		/// <summary>
 		/// コマンドの数を返します
 		/// </summary>
-		public int Count { get { return m_list.Count; } }
+		public int Count => m_list.Count;
 
 		/// <summary>
 		/// 指定された文字列のコレクションからコマンドのリストを作成します
@@ -94,7 +94,7 @@ namespace UnityCommandController
 			{
 				var list = m_list[ i ];
 
-				if ( list == null || list == string.Empty )
+				if ( string.IsNullOrEmpty( list ) )
 				{
 					continue;
 				}
@@ -107,6 +107,7 @@ namespace UnityCommandController
 					return i;
 				}
 			}
+
 			return -1;
 		}
 
@@ -119,7 +120,7 @@ namespace UnityCommandController
 			{
 				var list = m_list[ i ];
 
-				if ( list == null || list == string.Empty )
+				if ( string.IsNullOrEmpty( list ) )
 				{
 					continue;
 				}
@@ -137,6 +138,7 @@ namespace UnityCommandController
 					return i;
 				}
 			}
+
 			return -1;
 		}
 	}

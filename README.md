@@ -1,17 +1,6 @@
-[日本語の Readme はこちら](https://github.com/baba-s/unity-command-controller/blob/master/README_JP.md)  
+# UniCommandController
 
-# UnityCommandController
 A simple library that can control commands to implement event scripts.  
-
-# Version
-
-- Unity 2017.3.0f3
-
-# Install
-
-1. Go to the following page and download "UnityCommandController.unitypackage".  
-https://github.com/baba-s/unity-command-controller/blob/master/UnityCommandController.unitypackage?raw=true
-2. Import the downloaded "UnityCommandController.unitypackage" into the Unity project.  
 
 # Usage
 

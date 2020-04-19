@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UnityCommandController
+namespace UniCommandController
 {
 	/// <summary>
 	/// コマンドのコンストラクタに渡される引数を管理するクラス
 	/// </summary>
 	public sealed class CommandArguments
 	{
-		private readonly List<string> m_list;    // 引数を管理するリスト
+		private readonly List<string> m_list; // 引数を管理するリスト
 
 		/// <summary>
 		/// 指定されたインデックスの引数を返します
 		/// </summary>
-		public string this[ int index ] { get { return m_list[ index ]; } }
+		public string this[ int index ] => m_list[ index ];
 
 		/// <summary>
 		/// 引数の数を返します
 		/// </summary>
-		public int Count { get { return m_list.Count; } }
+		public int Count => m_list.Count;
 
 		/// <summary>
 		/// 指定された文字列のコレクションから引数のリストを作成するコンストラクタ
@@ -73,7 +73,7 @@ namespace UnityCommandController
 		/// </summary>
 		public T ToEnum<T>( int index, string defaultVal = "0" )
 		{
-			return ( T )Enum.Parse( typeof( T ), ElementAtOrDefault( index, defaultVal ) );
+			return ( T ) Enum.Parse( typeof( T ), ElementAtOrDefault( index, defaultVal ) );
 		}
 
 		/// <summary>
@@ -94,7 +94,7 @@ namespace UnityCommandController
 				return m_list[ index ];
 			}
 
-			return defaultVal;	// デフォルト値を返す
+			return defaultVal; // デフォルト値を返す
 		}
 	}
 }

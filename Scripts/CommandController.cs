@@ -2,43 +2,45 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UnityCommandController
+namespace UniCommandController
 {
 	/// <summary>
 	/// コマンドを制御するクラス
 	/// </summary>
 	public sealed class CommandController : IDisposable
 	{
-		private readonly CommandList m_commandList = new CommandList();	// コマンドのリスト
+		private readonly CommandList m_commandList = new CommandList(); // コマンドのリスト
 
-		private int			m_currentIndex;		// 現在のインデックス
-		private int			m_jumpIndex;		// ジャンプ先のインデックス
-		private ICommand	m_currentCommand;	// 現在のコマンド
-		private bool		m_isEnd;			// 終了したかどうか
+		private int      m_currentIndex;   // 現在のインデックス
+		private int      m_jumpIndex;      // ジャンプ先のインデックス
+		private ICommand m_currentCommand; // 現在のコマンド
+		private bool     m_isEnd;          // 終了したかどうか
 
-		private string m_separator = "|";	// コマンドの引数の区切り文字列
+		private string m_separator = "|"; // コマンドの引数の区切り文字列
 
-		private readonly Dictionary<string, Type> m_commandTable = new Dictionary<string, Type>();
+		private readonly Dictionary<string, Type> m_commandTable;
 
 		/// <summary>
 		/// 現在のコマンドのインデックスを返します
 		/// </summary>
-		public int CurrentIndex { get { return m_currentIndex; } }
+		public int CurrentIndex => m_currentIndex;
 
 		/// <summary>
 		/// コマンドの数を返します
 		/// </summary>
-		public int Count { get { return m_commandList.Count; } }
+		public int Count => m_commandList.Count;
 
 		/// <summary>
 		/// コマンドの引数の区切り文字列を取得または設定します
 		/// </summary>
-		public string Separator { set { m_separator = value; } }
+		public string Separator { set => m_separator = value; }
 
 		/// <summary>
 		/// 終了した場合に呼び出されます
 		/// </summary>
-		public event Action OnEnd = delegate { };
+		public event Action OnEnd = delegate
+		{
+		};
 
 		/// <summary>
 		/// コンストラクタ
@@ -191,8 +193,8 @@ namespace UnityCommandController
 		/// </summary>
 		public void Restart()
 		{
-			m_currentIndex = 0;
-			m_jumpIndex = -1;
+			m_currentIndex   = 0;
+			m_jumpIndex      = -1;
 			m_currentCommand = CreateCommand( m_commandList[ m_currentIndex ] );
 			m_currentCommand.Start();
 		}
@@ -203,7 +205,7 @@ namespace UnityCommandController
 		public void End()
 		{
 			m_jumpIndex = m_commandList.Count;
-			m_isEnd = true;
+			m_isEnd     = true;
 		}
 
 		/// <summary>
@@ -211,7 +213,9 @@ namespace UnityCommandController
 		/// </summary>
 		public void Dispose()
 		{
-			OnEnd = delegate { };
+			OnEnd = delegate
+			{
+			};
 		}
 
 		/// <summary>
@@ -224,10 +228,10 @@ namespace UnityCommandController
 		/// </summary>
 		private ICommand CreateCommand( string command )
 		{
-			var scriptList = command.Split( new [] { m_separator }, StringSplitOptions.None ).ToList();
-			var type = m_commandTable[ scriptList[ 0 ] ];
+			var scriptList = command.Split( new[] { m_separator }, StringSplitOptions.None ).ToList();
+			var type       = m_commandTable[ scriptList[ 0 ] ];
 
-			var script = ( ICommand )Activator.CreateInstance( type, new object[] { new CommandArguments( scriptList ) } );
+			var script = ( ICommand ) Activator.CreateInstance( type, new object[] { new CommandArguments( scriptList ) } );
 
 			return script;
 		}

@@ -1,4 +1,4 @@
-﻿namespace UnityCommandController
+﻿namespace UniCommandController
 {
 	/// <summary>
 	/// コマンドのインターフェイス
